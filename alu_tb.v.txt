@@ -1,0 +1,61 @@
+// Code your testbench here
+// or browse Examples
+// -----------------------------------------------------------------------------
+// Testbench for Up/Down Counter
+// -----------------------------------------------------------------------------
+`timescale 1ns / 1ps
+
+module tb_up_down_counter;
+
+    // Inputs
+    reg clk;
+    reg reset;
+    reg up_down;
+
+    // Outputs
+    wire [3:0] count;
+
+    // Instantiate the Unit Under Test (UUT)
+    up_down_counter #( .WIDTH(4) ) uut (
+        .clk(clk),
+        .reset(reset),
+        .up_down(up_down),
+        .count(count)
+    );
+
+    // Clock generation (50MHz)
+    always #10 clk = ~clk;
+
+    initial begin
+      $dumpfile("dump.vcd");
+        $dumpvars(1, tb_up_down_counter);
+
+        // Initialize Inputs
+        clk = 0;
+        reset = 0;
+        up_down = 0;
+        // Initialize Inputs
+        clk = 0;
+        reset = 0;
+        up_down = 0;
+
+        // Apply Reset
+        #5 reset = 1;
+        #15 reset = 0; // Release reset
+        
+        // Test Case 1: Count Up
+        up_down = 1;
+        #160;          // Let it count up for several cycles
+
+        // Test Case 2: Count Down
+        up_down = 0;
+        #160;          // Let it count down
+
+        // Test Case 3: Assert Reset while running
+        #20 reset = 1;
+        #20 reset = 0;
+
+        #40 $finish;   // End simulation
+    end
+      
+endmodule
