@@ -1,4 +1,4 @@
-# arithmetic-logic-unit-project
+
 # Design and Simulation of a 4-Bit Arithmetic Logic Unit (ALU)
 
 ## Project Overview
