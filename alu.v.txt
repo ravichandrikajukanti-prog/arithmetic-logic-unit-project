@@ -1,0 +1,27 @@
+// Code your design here
+// -----------------------------------------------------------------------------
+// Module Name: up_down_counter
+// Description: A parameterized 4-bit Up/Down Counter with Asynchronous Reset
+// -----------------------------------------------------------------------------
+module up_down_counter #(
+    parameter WIDTH = 4
+)(
+    input wire clk,                    // Clock signal
+    input wire reset,                  // Asynchronous active-high reset
+    input wire up_down,                // 1 for Up, 0 for Down
+    output reg [WIDTH-1:0] count       // Counter output
+);
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            count <= {WIDTH{1'b0}};    // Reset counter to 0
+        end else begin
+            if (up_down) begin
+                count <= count + 1'b1; // Count Up
+            end else begin
+                count <= count - 1'b1; // Count Down
+            end
+        end
+    end
+
+endmodule
